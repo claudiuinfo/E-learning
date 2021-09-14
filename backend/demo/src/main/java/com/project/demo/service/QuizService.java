@@ -14,8 +14,6 @@ public class QuizService {
     @Autowired
     QuizRepository quizRepository;
 
-
-
     public List<Quiz> findAll() {
         return quizRepository.findAll();
     }

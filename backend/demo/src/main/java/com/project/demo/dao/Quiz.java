@@ -18,8 +18,4 @@ public class Quiz {
     int noQuestions;
     @Column(name="is_active")
     int isActive;
-
-
-
-
 }

@@ -6,7 +6,8 @@ function Student() {
 
     useEffect(() => { 
       Axios.get("http://localhost:8081/quiz/all").then( (response) => { 
-        setQuizList(response.data.quizList);
+        console.log(response);
+        setQuizList(response.data);
       });
     });
 

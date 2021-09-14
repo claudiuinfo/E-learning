@@ -13,10 +13,10 @@ function Teacher() {
       console.log(  newQuiz);
       
       Axios.post("http://localhost:8081/quiz", {
-        quiz: newQuiz
+          quiz: newQuiz
       }).then( (response) => {
         console.log("succes");
-        console.log("newQuiz after response: " + response);
+        console.log(response.data);
       });
     }
 
