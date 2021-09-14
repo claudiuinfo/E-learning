@@ -8,11 +8,13 @@ import {
 } from "react-router-dom";
 import Student from './student/Student';
 import Teacher from './teacher/Teacher';
+import Menu from './components/Menu';
 
 function App() {
   return (
     <div className="App">
-     <Router>
+      <Menu />
+      <Router>
         <Switch>
           <Route exact path="/student">
             <Student />
