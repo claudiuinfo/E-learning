@@ -5,7 +5,7 @@ function Student() {
     const [quizList, setQuizList] = useState([]);
 
     useEffect(() => { 
-      Axios.get("http://localhost:8081/api/quiz").then( (response) => { 
+      Axios.get("http://localhost:8081/quiz/all").then( (response) => { 
         setQuizList(response.data.quizList);
       });
     });

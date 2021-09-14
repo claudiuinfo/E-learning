@@ -1,0 +1,45 @@
+CREATE TABLE `e-learning`.`student` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `mail` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `e-learning`.`teacher` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `mail` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `e-learning`.`quiz` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `teacher_id` INT NOT NULL,
+  FOREIGN KEY(`teacher_id`) REFERENCES teacher(`id`) ON DELETE CASCADE,
+  `no_questions` TINYINT NULL,
+  `is_active` TINYINT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `e-learning`.`question` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `quiz_id` INT NOT NULL,
+  FOREIGN KEY(`quiz_id`) REFERENCES quiz(`id`) ON DELETE CASCADE,
+  question TEXT NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `e-learning`.`answer` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question_id` INT NOT NULL,
+  FOREIGN KEY(`question_id`) REFERENCES question(`id`) ON DELETE CASCADE,
+  `answer` TEXT NOT NULL,
+  `is_correct` TINYINT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `e-learning`.`score` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `student_id` INT NOT NULL,
+  FOREIGN KEY(`student_id`) REFERENCES student(`id`) ON DELETE CASCADE,
+  `quiz_id` INT NOT NULL,
+  FOREIGN KEY(`quiz_id`) REFERENCES quiz(`id`) ON DELETE CASCADE,
+  `max_score` INT NOT NULL,
+  PRIMARY KEY (`id`));

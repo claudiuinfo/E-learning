@@ -6,13 +6,13 @@ function Teacher() {
     const addQuiz = () => {
       let newQuiz = {
         id: Math.floor(Math.random() * 1000),
-        teacher_id: 1,
-        no_questions: Math.floor(Math.random() * 30),
-        is_active: false
+        teacherId: 1,
+        noQuestions: Math.floor(Math.random() * 30),
+        isActive: 1
       }
       console.log(  newQuiz);
       
-      Axios.post("http://localhost:8081/api/quiz", {
+      Axios.post("http://localhost:8081/quiz", {
         quiz: newQuiz
       }).then( (response) => {
         console.log("succes");
