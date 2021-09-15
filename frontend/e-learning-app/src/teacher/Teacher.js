@@ -10,7 +10,7 @@ function Teacher() {
         noQuestions: Math.floor(Math.random() * 30),
         isActive: 1
       }
-      console.log(  newQuiz);
+      console.log(newQuiz);
       
       Axios.post("http://localhost:8081/quiz", {
           quiz: newQuiz

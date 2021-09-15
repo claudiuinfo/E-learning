@@ -9,6 +9,8 @@ import {
 import Student from './student/Student';
 import Teacher from './teacher/Teacher';
 import Menu from './components/Menu';
+import AllStudents from './student/AllStudents';
+import AllTeachers from './teacher/AllTeachers';
 
 function App() {
   return (
@@ -17,9 +19,15 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/student">
+            <AllStudents />
+          </Route>
+          <Route exact path="/student/:id">
             <Student />
           </Route>
           <Route exact path="/teacher">
+            <AllTeachers />
+          </Route>
+          <Route exact path="/teacher/:id">
             <Teacher />
           </Route>
         </Switch>
