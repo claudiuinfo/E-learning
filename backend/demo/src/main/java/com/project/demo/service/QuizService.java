@@ -18,6 +18,14 @@ public class QuizService {
         return quizRepository.findAll();
     }
 
+    public Quiz getQuizById(Integer id) {
+         return quizRepository.findById(id).get();
+    }
+
+    public List<Quiz> findAllByTeacherId(Integer tid) {
+        return quizRepository.findAllByTeacherId(tid);
+    }
+
     public Quiz save(Quiz quiz){
         return quizRepository.save(quiz);
     }

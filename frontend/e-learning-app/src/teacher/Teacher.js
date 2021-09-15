@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { useParams } from 'react-router';
 
 function Teacher() {
+  const [quizList, setQuizList] = useState([]);
+  let params = useParams();
+  console.log(params);
+
+  useEffect(() => { 
+    Axios.get("http://localhost:8081/quiz/all/" + params.teacherId).then( (response) => { 
+      console.log(response);
+      setQuizList(response.data);
+    });
+  }, []);
 
     const addQuiz = () => {
       let newQuiz = {
@@ -24,8 +35,15 @@ function Teacher() {
       <div>
         Teacher
         <button type="button" className="btn btn-primary" onClick={addQuiz}>Add quiz</button>
+        <div className="list-group">
+          {quizList.map( (element, index) => {
+            return (
+              <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action">Quiz {element.id}</a>
+            );
+          })}
+        </div>
       </div>
     );
-  }
+}
   
   export default Teacher;

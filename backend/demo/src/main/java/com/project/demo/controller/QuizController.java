@@ -32,6 +32,16 @@ public class QuizController {
     return ResponseEntity.status(HttpStatus.OK).body(quizService.findAll());
 }
 
+    @GetMapping("/all/{teacherId}")
+    public ResponseEntity findAllByTeacherId(@PathVariable(name = "teacherId") Integer tid) {
+        return ResponseEntity.status(HttpStatus.OK).body(quizService.findAllByTeacherId(tid));
+    }
+
+    @GetMapping("/{quizId}")
+    public ResponseEntity<Quiz> getQuizById(@PathVariable(name = "quizId") Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(quizService.getQuizById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Quiz> createQuiz(@RequestBody QuizForm quizForm) {
         Quiz quiz = quizForm.getQuiz();

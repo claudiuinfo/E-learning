@@ -11,6 +11,8 @@ import Teacher from './teacher/Teacher';
 import Menu from './components/Menu';
 import AllStudents from './student/AllStudents';
 import AllTeachers from './teacher/AllTeachers';
+import StudentQuiz from './student/StudentQuiz';
+import TeacherQuiz from './teacher/TeacherQuiz';
 
 function App() {
   return (
@@ -21,14 +23,20 @@ function App() {
           <Route exact path="/student">
             <AllStudents />
           </Route>
-          <Route exact path="/student/:id">
+          <Route exact path="/student/:studentId">
             <Student />
+          </Route>
+          <Route exact path="/student/:studentId/quiz/:quizId">
+            <StudentQuiz />
           </Route>
           <Route exact path="/teacher">
             <AllTeachers />
           </Route>
-          <Route exact path="/teacher/:id">
+          <Route exact path="/teacher/:teacherId">
             <Teacher />
+          </Route>
+          <Route exact path="/teacher/:teacherId/quiz/:quizId">
+            <TeacherQuiz />
           </Route>
         </Switch>
       </Router>

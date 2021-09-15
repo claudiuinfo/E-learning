@@ -9,18 +9,18 @@ function AllStudents() {
         console.log(response);
         setStudentList(response.data);
       });
-    });
+    }, []);
 
     return (
       <div>
         All Students
-        <ul>
+        <div className="list-group">
           {studentList.map( (element, index) => {
             return (
-              <li><a href={"http://localhost:3000/student/" + element.id}>Student {element.name} with id {element.id}</a></li>
+              <a href={"http://localhost:3000/student/" + element.id} className="list-group-item list-group-item-action">Student {element.name} with id {element.id}</a>
             );
           })}
-        </ul>
+        </div>
       </div>
     );
   }

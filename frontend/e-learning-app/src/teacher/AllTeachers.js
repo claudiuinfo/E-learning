@@ -9,18 +9,18 @@ function AllTeachers() {
         console.log(response);
         setTeacherList(response.data);
       });
-    });
+    }, []);
 
     return (
       <div>
         All Teachers
-        <ul>
+        <div className="list-group">
           {teacherList.map( (element, index) => {
             return (
-              <li><a href={"http://localhost:3000/teacher/" + element.id}>Teacher {element.name} with id {element.id}</a></li>
+              <a href={"http://localhost:3000/teacher/" + element.id} className="list-group-item list-group-item-action">Teacher {element.name} with id {element.id}</a>
             );
           })}
-        </ul>
+        </div>
       </div>
     );
   }
