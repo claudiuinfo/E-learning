@@ -17,7 +17,7 @@ function TeacherQuiz({match}) {
     return (
       <div>
         TeacherQuiz
-        Quiz with id {quiz.id} by teacher with id {quiz.teacherId}
+        Quiz with id {quiz.id} by teacher with id {quiz.teacherId} and quiz {quiz.isActive ? 'is active' : 'is not active'}
       </div>
     );
 }

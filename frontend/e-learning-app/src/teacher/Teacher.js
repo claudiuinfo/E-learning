@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router';
+import Form from './Form';
 
 function Teacher() {
   const [quizList, setQuizList] = useState([]);
@@ -34,7 +35,6 @@ function Teacher() {
     return (
       <div>
         Teacher
-        <button type="button" className="btn btn-primary" onClick={addQuiz}>Add quiz</button>
         <div className="list-group">
           {quizList.map( (element, index) => {
             return (
@@ -42,6 +42,7 @@ function Teacher() {
             );
           })}
         </div>
+        <Form />
       </div>
     );
 }
