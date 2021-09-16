@@ -34,6 +34,19 @@ function Student(props) {
       setTeacherId(e.target.value);
     }
 
+    const getStatus = (element) => {
+      switch(element.status) {
+        case 'active':
+          return 'active until ' + element.dueDate;
+          break;
+        case 'expired':
+          return 'expired on ' + element.dueDate
+          break;
+        default:
+          return 'no status' 
+      }
+    }
+
     return (
       <div className="container">
         Student
@@ -48,7 +61,9 @@ function Student(props) {
         <div className="list-group">
           {quizList.map( (element, index) => {
             return (
-              <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action">Quiz {element.id}</a>
+              <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action">
+                Quiz {element.id} {getStatus(element)}
+              </a>
             );
           })}
         </div>
