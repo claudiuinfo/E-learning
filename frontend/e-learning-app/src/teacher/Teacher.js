@@ -5,15 +5,22 @@ import Form from './Form';
 
 function Teacher() {
   const [quizList, setQuizList] = useState([]);
+  const [quizStatus, setQuizStatus] = useState("all");
   let params = useParams();
   console.log(params);
 
   useEffect(() => { 
     Axios.get("http://localhost:8081/quiz/all/" + params.teacherId).then( (response) => { 
       console.log(response);
-      setQuizList(response.data);
+      if (quizStatus == "all") {
+        setQuizList(response.data);
+      } else {
+          setQuizList(response.data.filter((element, index) => {
+            return quizStatus == element.status;  
+          }));
+      }
     });
-  }, []);
+  }, [quizStatus]);
 
     const addQuiz = () => {
       let newQuiz = {
@@ -32,13 +39,42 @@ function Teacher() {
       });
     }
 
+    const getStatus = (element) => {
+      switch(element.status) {
+        case 'active':
+          return <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-primary">
+            Quiz {element.id} active until {element.dueDate};
+          </a>
+          break;
+        case 'expired':
+          return <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-warning">
+            Quiz {element.id} finished on {element.dueDate}
+          </a>
+          break;
+        default:
+          return <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-danger">
+            Quiz {element.id} without status
+          </a> 
+      }
+    }
+
+    const handleSelectedStatusChange = (e) => {
+      console.log(e.target.value);
+      setQuizStatus(e.target.value);
+    }
+
     return (
       <div>
         Teacher
+        <select onChange={e => handleSelectedStatusChange(e)} className="form-select" aria-label="Filter for quizzes">
+          <option value="all">All status</option>
+          <option value="active">ACTIVE</option>
+          <option value="expired">FINISHED</option>
+        </select>
         <div className="list-group">
           {quizList.map( (element, index) => {
             return (
-              <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action">Quiz {element.id}</a>
+              getStatus(element)
             );
           })}
         </div>

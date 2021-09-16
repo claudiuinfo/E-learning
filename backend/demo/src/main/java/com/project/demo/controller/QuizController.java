@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.demo.dao.Quiz;
 import com.project.demo.dao.QuizForm;
 import com.project.demo.dao.QuizRowMapper;
+import com.project.demo.dao.Score;
 import com.project.demo.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,23 +51,24 @@ public class QuizController {
     }
 
     @GetMapping("/all/active")
-    public List<Quiz> findAllActive() {
+    public List<Quiz> findAllActive(@RequestParam(name="studentId") Integer studentId) {
         String sql = "SELECT * FROM quiz WHERE is_active <> 0";
         List<Quiz> quizList = this.jdbcTemplate.query("SELECT * FROM quiz WHERE is_active <> 0",new QuizRowMapper());
         for (Quiz quiz : quizList) {
-            quiz.setStatus();
+            quiz.updateStatus();
+            Score score = quizService.findScoreByStudentId(studentId, quiz.getId());
+            quiz.updateStatus(score);
         }
         System.out.println(quizList);
         return quizList;
     }
-
 
     @GetMapping("/all/active/{teacherId}")
     @ResponseBody
     public List<Quiz> findActiveByTeacherId(@PathVariable(name = "teacherId") Integer tid){
         List<Quiz> quizList = this.jdbcTemplate.query("SELECT * FROM quiz WHERE is_active <> 0 AND teacher_id = " + tid,new QuizRowMapper());
         for (Quiz quiz : quizList) {
-            quiz.setStatus();
+            quiz.updateStatus();
         }
         System.out.println(quizList);
         return quizList;

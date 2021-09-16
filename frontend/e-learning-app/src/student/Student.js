@@ -6,6 +6,7 @@ function Student(props) {
     const [quizList, setQuizList] = useState([]);
     const [teacherList, setTeacherList] = useState([]);
     const [teacherId, setTeacherId] = useState(0);
+    const [quizStatus, setQuizStatus] = useState("all");
     let params = useParams();
     console.log(params);
  
@@ -15,11 +16,18 @@ function Student(props) {
       if (teacherId != 0) {
         urlForAllQuizzes += "/" + teacherId;
       }
+      urlForAllQuizzes += "?studentId=" + params.studentId;
       Axios.get(urlForAllQuizzes).then( (response) => { 
         console.log(response);
-        setQuizList(response.data);
+        if (quizStatus == "all") {
+          setQuizList(response.data);
+        } else {
+            setQuizList(response.data.filter((element, index) => {
+              return quizStatus == element.status;  
+            }));
+        }
       });
-    }, [teacherId]);
+    }, [teacherId, quizStatus]);
 
     // Doar o singura data e apelata
     useEffect(() => {
@@ -34,16 +42,32 @@ function Student(props) {
       setTeacherId(e.target.value);
     }
 
+    const handleSelectedStatusChange = (e) => {
+      console.log(e.target.value);
+      setQuizStatus(e.target.value);
+    }
+
     const getStatus = (element) => {
       switch(element.status) {
         case 'active':
-          return 'active until ' + element.dueDate;
+          return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-primary">
+            Quiz {element.id} created by teacher {element.teacherId} active until {element.dueDate};
+          </a>
           break;
         case 'expired':
-          return 'expired on ' + element.dueDate
+          return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action disabled">
+            Quiz {element.id} created by teacher {element.teacherId} expired on {element.dueDate}
+          </a>
           break;
+        case 'completed':
+          return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-success">
+            Quiz {element.id} created by teacher {element.teacherId} completed with a score of {element.score} out of {element.noQuestions}
+          </a>
+          break;  
         default:
-          return 'no status' 
+          return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-danger">
+            Quiz {element.id} created by teacher {element.teacherId} without status
+          </a> 
       }
     }
 
@@ -58,12 +82,16 @@ function Student(props) {
             );
           })}
         </select>
+        <select onChange={e => handleSelectedStatusChange(e)} className="form-select" aria-label="Filter for quizzes">
+          <option value="all">All status</option>
+          <option value="active">ACTIVE</option>
+          <option value="expired">EXPIRED</option>
+          <option value="completed">COMPLETED</option>
+        </select>
         <div className="list-group">
           {quizList.map( (element, index) => {
             return (
-              <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action">
-                Quiz {element.id} {getStatus(element)}
-              </a>
+              getStatus(element)
             );
           })}
         </div>
