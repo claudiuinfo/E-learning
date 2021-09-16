@@ -53,6 +53,10 @@ public class QuizController {
     public List<Quiz> findAllActive() {
         String sql = "SELECT * FROM quiz WHERE is_active <> 0";
         List<Quiz> quizList = this.jdbcTemplate.query("SELECT * FROM quiz WHERE is_active <> 0",new QuizRowMapper());
+        for (Quiz quiz : quizList) {
+            quiz.setStatus();
+        }
+        System.out.println(quizList);
         return quizList;
     }
 
@@ -60,8 +64,12 @@ public class QuizController {
     @GetMapping("/all/active/{teacherId}")
     @ResponseBody
     public List<Quiz> findActiveByTeacherId(@PathVariable(name = "teacherId") Integer tid){
-        List<Quiz> quiz = this.jdbcTemplate.query("SELECT * FROM quiz WHERE is_active <> 0 AND teacher_id = " + tid,new QuizRowMapper());
-        return quiz;
+        List<Quiz> quizList = this.jdbcTemplate.query("SELECT * FROM quiz WHERE is_active <> 0 AND teacher_id = " + tid,new QuizRowMapper());
+        for (Quiz quiz : quizList) {
+            quiz.setStatus();
+        }
+        System.out.println(quizList);
+        return quizList;
     }
 
 }

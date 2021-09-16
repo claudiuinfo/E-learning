@@ -10,7 +10,8 @@ class Form extends Component {
 			questions: '',
 			answers: '',
 			teacherId: '',
-			isActive: ''
+			isActive: '',
+			dueDate: ''
 		}
 	}
 
@@ -45,6 +46,12 @@ class Form extends Component {
 		})
 	}
 
+	handleDueDateChange = event => {
+		this.setState({
+			dueDate: event.target.value
+		})
+	}
+
 	handleSubmit = event => {
 		alert(`${this.state.numberOfQuestions} ${this.state.questions} ${this.state.answers}
 			   ${this.state.teacherId} ${this.state.isActive}`)
@@ -58,7 +65,8 @@ class Form extends Component {
 		  noQuestions: this.state.numberOfQuestions,
 		  isActive: this.state.isActive,
 		  questions: [],
-		  answers: []
+		  answers: [],
+		  dueDate: this.state.dueDate
 		}
 		console.log(newQuiz);
 		
@@ -71,7 +79,7 @@ class Form extends Component {
 	  }
 
 	render() {
-		const { numberOfQuestions, questions, answers, teacherId, isActive} = this.state
+		const { numberOfQuestions, questions, answers, teacherId, isActive, dueDate} = this.state
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<div>
@@ -112,6 +120,14 @@ class Form extends Component {
 						type="text"
 						value={isActive}
 						onChange={this.handleStateChange}
+					/>
+				</div>
+				<div>
+					<label>Due Date</label>
+					<input
+						type="datetime-local"
+						value={dueDate}
+						onChange={this.handleDueDateChange}
 					/>
 				</div>
 				<button type="button" className="btn btn-primary" onClick={this.addQuiz}>Add quiz!</button>
