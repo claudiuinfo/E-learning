@@ -15,22 +15,9 @@ class Form extends Component {
 		}
 	}
 
-
 	handlenumberOfQuestionsChange = event => {
 		this.setState({
 			numberOfQuestions: event.target.value
-		})
-	}
-
-	handleQuestionsChange = event => {
-		this.setState({
-			questions: event.target.value
-		})
-	}
-
-	handleAnswersChange = event => {
-		this.setState({
-			answers: event.target.value
 		})
 	}
 
@@ -64,8 +51,6 @@ class Form extends Component {
 		  teacherId: this.state.teacherId,
 		  noQuestions: this.state.numberOfQuestions,
 		  isActive: this.state.isActive,
-		  questions: [],
-		  answers: [],
 		  dueDate: this.state.dueDate
 		}
 		console.log(newQuiz);
@@ -88,22 +73,6 @@ class Form extends Component {
 						type="text"
 						value={numberOfQuestions}
 						onChange={this.handlenumberOfQuestionsChange}
-					/>
-				</div>
-				<div>
-					<label>Questions</label>
-					<input
-						type="text"
-						value={questions}
-						onChange={this.handleQuestionsChange}
-					/>
-				</div>
-				<div>
-					<label>Answers</label>
-					<input
-						type="text"
-						value={answers}
-						onChange={this.handleAnswersChange}
 					/>
 				</div>
 				<div>

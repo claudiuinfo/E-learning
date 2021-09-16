@@ -43,17 +43,17 @@ function Teacher() {
       switch(element.status) {
         case 'active':
           return <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-primary">
-            Quiz {element.id} active until {element.dueDate};
+            Quiz {element.id} {element.isActive ? 'is visible' : 'is not visible'} active until {element.dueDate};
           </a>
           break;
         case 'expired':
           return <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-warning">
-            Quiz {element.id} finished on {element.dueDate}
+            Quiz {element.id} {element.isActive ? 'is visible' : 'is not visible'} finished on {element.dueDate}
           </a>
           break;
         default:
           return <a href={"http://localhost:3000/teacher/" + params.teacherId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-danger">
-            Quiz {element.id} without status
+            Quiz {element.id} {element.isActive ? 'is visible' : 'is not visible'} without status
           </a> 
       }
     }
