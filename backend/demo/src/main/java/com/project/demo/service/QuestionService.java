@@ -40,4 +40,22 @@ public class QuestionService {
     public Question addQuestion(Question question) {
         return questionRepository.save(question);
     }
+
+    public QuestionWithAnswers addQuestionWithAnswers(QuestionWithAnswers questionWithAnswers) {
+        Question question = addQuestion(questionWithAnswers.getQuestion());
+        List<Answer> answers = questionWithAnswers.getAnswers();
+
+        QuestionWithAnswers newQuestionWithAnswers = new QuestionWithAnswers();
+        newQuestionWithAnswers.setQuestion(question);
+        List<Answer> newAnswers = new ArrayList<>();
+
+        for (Answer answer : answers) {
+            answer.setId(0);
+            answer.setQuestionId(question.getId());
+            newAnswers.add(answerService.addAnswer(answer));
+        }
+
+        newQuestionWithAnswers.setAnswers(newAnswers);
+        return newQuestionWithAnswers;
+    }
 }

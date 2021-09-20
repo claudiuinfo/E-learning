@@ -50,7 +50,7 @@ function StudentQuiz({match}) {
         {quizIsStarted ?
           (
             <div>
-              <Timer hours={0} minutes={1} />
+              <Timer hours={1} minutes={30} />
               {questions.map( (element, index) => {
                 return (
                   renderQuestion(element)

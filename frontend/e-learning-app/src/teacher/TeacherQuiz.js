@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
 import Axios from 'axios';
-import { useParams } from 'react-router';
+import { useParams,  withRouter } from 'react-router';
 
 class TeacherQuiz extends Component{
   constructor(props) {
@@ -11,7 +11,8 @@ class TeacherQuiz extends Component{
       isCorrect: '',
       attributeForm:[],
       allAnswers: [],
-      numberOfAnswers: 0
+      numberOfAnswers: 0,
+      quizId: props.match.params.quizId
     }; 
   } 
 
@@ -38,8 +39,18 @@ class TeacherQuiz extends Component{
     }
 
     handleCorrectChange = event => {
+      console.log(event.target.id);
+      var allAnswers = this.state.allAnswers;
+      var all= allAnswers.map(element => {
+        if(("c" + element.id) == event.target.id) {
+          return {id:element.id, answer:element.answer, isCorrect:event.target.value}
+        } else {
+          return element;
+        }
+      })
       this.setState({
-        isCorrect: event.target.value
+        isCorrect: event.target.value,
+        allAnswers: all
       })
     }
 
@@ -67,6 +78,7 @@ class TeacherQuiz extends Component{
           <div>
             <label>The answer is correct </label>
             <input
+              id={"c" + numberOfAnswers}
               name="text"
               onChange={this.handleCorrectChange}
             />
@@ -74,7 +86,7 @@ class TeacherQuiz extends Component{
         </div>
       );
 
-      allAnswers.push({id:numberOfAnswers, answer:""});
+      allAnswers.push({id:numberOfAnswers, answer:"", isCorrect: 0});
   
       this.setState({
           attributeForm: array,
@@ -83,13 +95,20 @@ class TeacherQuiz extends Component{
       });
   }
 
-  addQuiz = () => {
+  addQuestion = () => {
 		let newForm = {
-		  teacherId: this.state.teacherId,
-      question: this.state.question,
+      question: {
+        quizId: this.state.quizId,
+        question: this.state.question
+      },
       answers: this.state.allAnswers
     }    
 		console.log(newForm);
+
+    Axios.post("http://localhost:8081/question", newForm).then( (response) => {
+        console.log("succes");
+        console.log(response.data);
+      });
   }  
 
     // useEffect(() => {
@@ -119,10 +138,10 @@ class TeacherQuiz extends Component{
               }
               <button onClick={this.addAttributeForm.bind(this)}>ADD ANSWER</button>
           </div>
-          <button type="button" className="btn btn-primary" onClick={this.addQuiz}>Add question!</button>
+          <button type="button" className="btn btn-primary" onClick={this.addQuestion}>Add question!</button>
       </form>
       )
     }
 }
   
-  export default TeacherQuiz;
+  export default  withRouter(TeacherQuiz);

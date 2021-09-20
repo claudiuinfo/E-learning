@@ -1,5 +1,6 @@
 package com.project.demo.controller;
 
+import com.project.demo.dao.QuestionWithAnswers;
 import com.project.demo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,11 @@ public class QuestionController {
     @GetMapping("/all/{quizId}")
     public ResponseEntity findAllByQuizId(@PathVariable(name = "quizId") Integer quizId) {
         return ResponseEntity.status(HttpStatus.OK).body(questionService.findAllByQuizId(quizId));
+    }
+
+    @PostMapping()
+    public ResponseEntity addQuestion(@RequestBody QuestionWithAnswers questionWithAnswers) {
+        System.out.println(questionWithAnswers);
+        return ResponseEntity.status(HttpStatus.OK).body(questionService.addQuestionWithAnswers(questionWithAnswers));
     }
 }
