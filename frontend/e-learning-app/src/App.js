@@ -13,6 +13,7 @@ import AllStudents from './student/AllStudents';
 import AllTeachers from './teacher/AllTeachers';
 import StudentQuiz from './student/StudentQuiz';
 import TeacherQuiz from './teacher/TeacherQuiz';
+import Upload from './teacher/Upload';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route exact path="/teacher/:teacherId/quiz/:quizId">
             <TeacherQuiz />
+          </Route>
+          <Route exact path= "/upload">
+            <Upload />
           </Route>
         </Switch>
       </Router>
