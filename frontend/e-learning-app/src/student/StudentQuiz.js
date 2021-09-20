@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router';
+import Timer from './Timer';
 
 function StudentQuiz({match}) {
   const [quizIsStarted, setQuizIsStarted] = useState(false);
@@ -46,13 +47,20 @@ function StudentQuiz({match}) {
       <div>
         StudentQuiz
         Quiz with id {quiz.id} by teacher with id {quiz.teacherId}
-        {!quizIsStarted && <button type="button" className="btn btn-primary" onClick={startQuiz}>Start quiz!</button>}
-        {quizIsStarted && 
-          questions.map( (element, index) => {
-            return (
-              renderQuestion(element)
-            );
-          })
+        {quizIsStarted ?
+          (
+            <div>
+              <Timer hours={0} minutes={1} />
+              {questions.map( (element, index) => {
+                return (
+                  renderQuestion(element)
+                );
+              })}
+            </div>
+          ) : 
+          (
+            <button type="button" className="btn btn-primary" onClick={startQuiz}>Start quiz!</button>
+          )
         }
       </div>
     );
