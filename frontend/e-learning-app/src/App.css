@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.correctText{ background-color:green; }
+
+.wrongText{ background-color:red; }
+
+select option[value="0"]{background-color: tomato;}
+
+.box option[value="0"] {
+  background-color: tomato;
+}
+
+.box option[value="1"] {
+  background-color: chartreuse;
+}
+
+
+
+
