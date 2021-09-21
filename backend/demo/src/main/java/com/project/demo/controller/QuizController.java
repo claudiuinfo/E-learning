@@ -2,10 +2,7 @@ package com.project.demo.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.demo.dao.Quiz;
-import com.project.demo.dao.QuizForm;
-import com.project.demo.dao.QuizRowMapper;
-import com.project.demo.dao.Score;
+import com.project.demo.dao.*;
 import com.project.demo.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,6 +69,12 @@ public class QuizController {
         }
         System.out.println(quizList);
         return quizList;
+    }
+
+    @PostMapping("/submit/{quizId}")
+    public ResponseEntity submitQuiz(@PathVariable(name = "quizId") Integer quizId, @RequestBody List<QuestionWithAnswers> questionWithAnswers) {
+        System.out.println(questionWithAnswers);
+        return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
 }
