@@ -12,10 +12,22 @@ class TeacherQuiz extends Component{
       attributeForm:[],
       allAnswers: [],
       numberOfAnswers: 0,
-      quizId: props.match.params.quizId
+      quizId: props.match.params.quizId,
+      quiz: {},
+      questions: []
     }; 
-  } 
 
+    Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
+      console.log(response);
+      this.setState({quiz: response.data});
+    });
+
+    Axios.get("http://localhost:8081/question/all/" + this.state.quizId).then( (response) => { 
+        console.log(response);
+        this.setState({questions: response.data});
+    });
+  } 
+  
     handleQuestionsChange = event => {
       this.setState({
         question: event.target.value
@@ -109,7 +121,19 @@ class TeacherQuiz extends Component{
         console.log("succes");
         console.log(response.data);
       });
-  }  
+  }
+  
+  renderQuestion = element => {
+    console.log(element)
+    return <div>
+        <h2>{element.question.question}</h2>
+        {
+          element.answers.map( (e, i) => {
+            return <p>{e.answer}</p>
+          })
+        }
+      </div>
+  }
 
     // useEffect(() => {
     //   Axios.get("http://localhost:8081/quiz/" + params.quizId).then((response) => {
@@ -121,25 +145,32 @@ class TeacherQuiz extends Component{
     render () {
       const { question, answer, isCorrect } = this.state;
       return (
-        <form onSubmit={this.handleSubmit}>
-				<div>
-					<label>Question </label>
-					<input
-						type="text"
-						value={question}
-						onChange={this.handleQuestionsChange}
-					/>
-				</div>
         <div>
-              { 
-                this.state.attributeForm.map(input => {
-                    return input
-                })
-              }
-              <button onClick={this.addAttributeForm.bind(this)}>ADD ANSWER</button>
-          </div>
-          <button type="button" className="btn btn-primary" onClick={this.addQuestion}>Add question!</button>
-      </form>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label>Question </label>
+              <input
+                type="text"
+                value={question}
+                onChange={this.handleQuestionsChange}
+              />
+            </div>
+            <div>
+                  { 
+                    this.state.attributeForm.map(input => {
+                        return input
+                    })
+                  }
+                  <button onClick={this.addAttributeForm.bind(this)}>ADD ANSWER</button>
+            </div>
+            <button type="button" className="btn btn-primary" onClick={this.addQuestion}>Add question!</button>
+          </form>
+          {this.state.questions.map( (element, index) => {
+                return (
+                  this.renderQuestion(element)
+                );
+          })}
+        </div>
       )
     }
 }
