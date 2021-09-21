@@ -47,26 +47,34 @@ function Student(props) {
       setQuizStatus(e.target.value);
     }
 
+    const getTeacherName = (id) => {
+      for (let teacher of teacherList) {
+        if (id == teacher.id)
+          return teacher.name;
+      }
+      return null;
+    }
+
     const getStatus = (element) => {
       switch(element.status) {
         case 'active':
           return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-primary">
-            Quiz {element.id} created by teacher {element.teacherId} active until {element.dueDate};
+            Quiz {element.id} created by teacher {getTeacherName(element.teacherId)} active until {element.dueDate};
           </a>
           break;
         case 'expired':
           return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action disabled">
-            Quiz {element.id} created by teacher {element.teacherId} expired on {element.dueDate}
+            Quiz {element.id} created by teacher {getTeacherName(element.teacherId)} expired on {element.dueDate}
           </a>
           break;
         case 'completed':
           return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-success">
-            Quiz {element.id} created by teacher {element.teacherId} completed with a score of {element.score} out of {element.noQuestions}
+            Quiz {element.id} created by teacher {getTeacherName(element.teacherId)} completed with a score of {element.score} out of {element.noQuestions}
           </a>
           break;  
         default:
           return <a href={"http://localhost:3000/student/" + params.studentId + "/quiz/" + element.id} className="list-group-item list-group-item-action list-group-item-danger">
-            Quiz {element.id} created by teacher {element.teacherId} without status
+            Quiz {element.id} created by teacher {getTeacherName(element.teacherId)} without status
           </a> 
       }
     }
