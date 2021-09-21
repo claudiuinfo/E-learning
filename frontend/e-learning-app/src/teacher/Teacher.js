@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router';
 import Form from './Form';
+import AddQuizModal from './AddQuizModal';
 
 function Teacher() {
   const [quizList, setQuizList] = useState([]);
@@ -78,7 +79,7 @@ function Teacher() {
             );
           })}
         </div>
-        <Form />
+        <AddQuizModal />
       </div>
     );
 }
