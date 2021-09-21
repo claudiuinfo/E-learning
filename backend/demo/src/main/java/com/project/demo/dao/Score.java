@@ -17,4 +17,14 @@ public class Score {
     int quizId;
     @Column(name="max_score")
     int maxScore;
+
+    public Score() {
+        maxScore = 0;
+    }
+
+    public Score(int quizId, int studentId, int maxScore) {
+        this.quizId = quizId;
+        this.studentId = studentId;
+        this.maxScore = maxScore;
+    }
 }

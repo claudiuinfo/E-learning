@@ -12,4 +12,6 @@ import java.util.List;
 public interface AnswerRepository extends JpaRepository<Answer, Integer> {
     @Query("select a from Answer a where a.questionId = ?1")
     List<Answer> findAllByQuestionId(Integer questionId);
+    @Query("select a from Answer a where a.questionId = ?1 AND a.isCorrect = 1")
+    List<Answer> findAllCorrectByQuestionId(Integer questionId);
 }

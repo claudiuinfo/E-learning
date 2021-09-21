@@ -45,7 +45,7 @@ function StudentQuiz({match}) {
     setAllAnswers(x);
     console.log(x);
 
-    Axios.post("http://localhost:8081/quiz/submit/" + params.quizId, x).then( (response) => {
+    Axios.post("http://localhost:8081/quiz/submit/" + params.quizId + "?studentId=" + params.studentId, x).then( (response) => {
         console.log("succes");
         console.log(response.data);
       });

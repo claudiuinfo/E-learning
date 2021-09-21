@@ -72,9 +72,9 @@ public class QuizController {
     }
 
     @PostMapping("/submit/{quizId}")
-    public ResponseEntity submitQuiz(@PathVariable(name = "quizId") Integer quizId, @RequestBody List<QuestionWithAnswers> questionWithAnswers) {
+    public ResponseEntity submitQuiz(@RequestParam(name="studentId") Integer studentId, @PathVariable(name = "quizId") Integer quizId, @RequestBody List<QuestionWithAnswers> questionWithAnswers) {
         System.out.println(questionWithAnswers);
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        return ResponseEntity.status(HttpStatus.OK).body(quizService.submitQuiz(quizId, studentId, questionWithAnswers));
     }
 
 }

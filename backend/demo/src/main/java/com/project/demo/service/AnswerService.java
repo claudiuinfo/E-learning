@@ -27,4 +27,8 @@ public class AnswerService {
     public Answer addAnswer(Answer answer) {
         return answerRepository.save(answer);
     }
+
+    public List<Answer> findAllCorrectByQuestionId(Integer questionId) {
+        return answerRepository.findAllCorrectByQuestionId(questionId);
+    }
 }
