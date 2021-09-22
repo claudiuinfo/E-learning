@@ -142,7 +142,26 @@ class TeacherQuiz extends Component{
         console.log(response.data);
       });
   }
+
+  deleteQuestion = (element) => {
+    let quiz = this.state.quiz;
+    quiz.noQuestions = this.state.questions.length - 1;
+    this.setState({quiz})
+
+		let newForm = quiz;
+
+		console.log(newForm);
+
+    Axios.delete("http://localhost:8081/question/" + element.question.id, {data: {quiz} }).then( (response) => {
+        console.log("succes");
+        console.log(response.data);
+      });
+  }
   
+  myF = element => {
+    console.log(element);
+  }
+
   renderQuestion = (element, index) => {
     console.log(element)
    
@@ -151,7 +170,7 @@ class TeacherQuiz extends Component{
         <div className="left-but"><h2>{index+1}) {element.question.question}</h2></div>
         <div className="btn-group right-but">
             <button type="button" className="btn btn-primary">Edit</button>
-            <button type="button" className="btn btn-danger">Delete</button>
+            <button type="button" className="btn btn-danger" onClick={() => this.deleteQuestion(element)}>Delete</button>
         </div>
 
 

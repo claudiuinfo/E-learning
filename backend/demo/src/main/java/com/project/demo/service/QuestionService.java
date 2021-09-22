@@ -7,6 +7,7 @@ import com.project.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +58,12 @@ public class QuestionService {
 
         newQuestionWithAnswers.setAnswers(newAnswers);
         return newQuestionWithAnswers;
+    }
+
+    public Question deleteQuestion(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        questionRepository.deleteById(id);
+        return question;
     }
 }

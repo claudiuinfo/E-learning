@@ -3,6 +3,7 @@ package com.project.demo.controller;
 import com.project.demo.dao.QuestionWithAnswers;
 import com.project.demo.dao.Quiz;
 import com.project.demo.dao.QuizAndQuestionWithAnswers;
+import com.project.demo.dao.QuizForm;
 import com.project.demo.service.QuestionService;
 import com.project.demo.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,13 @@ public class QuestionController {
         System.out.println(questionWithAnswers);
         quizService.save(quiz);
         return ResponseEntity.status(HttpStatus.OK).body(questionService.addQuestionWithAnswers(questionWithAnswers));
+    }
+
+    @DeleteMapping("/{questionId}")
+    public ResponseEntity deleteQuiz(@PathVariable(name="questionId") Integer questionId, @RequestBody QuizForm quizForm) {
+        System.out.println(questionId);
+        System.out.println(quizForm);
+        quizService.save(quizForm.getQuiz());
+        return ResponseEntity.status(HttpStatus.OK).body(questionService.deleteQuestion(questionId));
     }
 }
