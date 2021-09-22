@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import { Modal, Button } from 'react-bootstrap';
 import { render } from 'react-dom';
+import './Modal.css';
 
 function AddQuizModal() {
   const [showModal, setShow] = useState(false);
