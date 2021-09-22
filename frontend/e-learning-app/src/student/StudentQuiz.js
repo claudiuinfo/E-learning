@@ -68,15 +68,19 @@ function StudentQuiz({match}) {
 
   const renderQuestion = (element) => {
     //console.log(element)
-    return <div>
+    return <div className="title">
         <h2>{element.question.question}</h2>
         {
           element.answers.map( (e, i) => {
             return <div className="form-check">
               <input className="form-check-input" type="checkbox" value={e.answer} onChange={handleCheckboxChange} id={e.id}/>
-              <label className="form-check-label" for="flexCheckDefault">
-                {e.answer}
-              </label>
+              <div>
+                <ul className="list-group">
+                  <li className="list-group-item ans"><label className="form-check-label" htmlFor="flexCheckDefault">
+                    {e.answer}
+                  </label></li>
+                </ul>
+              </div>
             </div>
           })
         }

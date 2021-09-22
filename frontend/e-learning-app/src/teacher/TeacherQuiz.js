@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { useParams,  withRouter } from 'react-router';
 import App from '../App';
 import '../App.css'
+import './style.css';
 
 class TeacherQuiz extends Component{
   constructor(props) {
@@ -45,6 +46,7 @@ class TeacherQuiz extends Component{
           return {id:element.id, answer:event.target.value}
         } else {
           return element;
+          return element;
         }
       })
       this.setState({
@@ -78,6 +80,7 @@ class TeacherQuiz extends Component{
       var array = this.state.attributeForm;
       var answer = this.state.answer;
       var isCorrect = this.state.isCorrect;
+
       var allAnswers = this.state.allAnswers;
       var numberOfAnswers = this.state.numberOfAnswers;
       array.push(
@@ -134,11 +137,24 @@ class TeacherQuiz extends Component{
   
   renderQuestion = element => {
     console.log(element)
-    return <div>
-        <h2>{element.question.question}</h2>
+
+    return <div className="title">
+
+        <div className="left-but"><h2>{element.question.question}</h2></div>
+        <div className="btn-group right-but">
+            <button type="button" className="btn btn-primary">Edit</button>
+            <button type="button" className="btn btn-danger">Delete</button>
+        </div>
+
+
         {
           element.answers.map( (e, i) => {
-            return <p>{e.answer}</p>
+
+            return <div><ul className="list-group">
+              <li style={{ background: e.isCorrect ? '#00FA9A' : '#FFB6C1' }} class="list-group-item ans">{e.answer}</li>
+            </ul>
+                </div>
+
           })
         }
       </div>
@@ -146,6 +162,7 @@ class TeacherQuiz extends Component{
 
     render () {
       const { question, answer, isCorrect } = this.state;
+
       return (
         <div>
         <form onSubmit={this.handleSubmit}>
