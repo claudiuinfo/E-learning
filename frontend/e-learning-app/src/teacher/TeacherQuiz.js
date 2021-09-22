@@ -31,7 +31,18 @@ class TeacherQuiz extends Component{
         this.setState({questions: response.data});
     });
   } 
-   
+
+  addOrDeleteQuestion = () => {
+    Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
+      console.log(response);
+      this.setState({quiz: response.data});
+    });
+
+    Axios.get("http://localhost:8081/question/all/" + this.state.quizId).then( (response) => { 
+        console.log(response);
+        this.setState({questions: response.data});
+    });
+  }
 
     handleQuestionsChange = event => {
       this.setState({
@@ -123,7 +134,7 @@ class TeacherQuiz extends Component{
   addQuestion = () => {
     let quiz = this.state.quiz;
     quiz.noQuestions = this.state.questions.length + 1
-    this.setState({quiz})
+    this.setState({quiz : quiz})
 
 		let newForm = {
       quiz: quiz,
@@ -141,12 +152,13 @@ class TeacherQuiz extends Component{
         console.log("succes");
         console.log(response.data);
       });
+      //this.addOrDeleteQuestion();
   }
 
   deleteQuestion = (element) => {
     let quiz = this.state.quiz;
     quiz.noQuestions = this.state.questions.length - 1;
-    this.setState({quiz})
+    this.setState({quiz : quiz})
 
 		let newForm = quiz;
 
@@ -156,10 +168,7 @@ class TeacherQuiz extends Component{
         console.log("succes");
         console.log(response.data);
       });
-  }
-  
-  myF = element => {
-    console.log(element);
+      //this.addOrDeleteQuestion();
   }
 
   renderQuestion = (element, index) => {
