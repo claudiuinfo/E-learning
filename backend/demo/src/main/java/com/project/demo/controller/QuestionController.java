@@ -1,7 +1,10 @@
 package com.project.demo.controller;
 
 import com.project.demo.dao.QuestionWithAnswers;
+import com.project.demo.dao.Quiz;
+import com.project.demo.dao.QuizAndQuestionWithAnswers;
 import com.project.demo.service.QuestionService;
+import com.project.demo.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,9 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
+    @Autowired
+    QuizService quizService;
+
     @GetMapping("/all")
     public ResponseEntity findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(questionService.findAll());
@@ -25,8 +31,12 @@ public class QuestionController {
     }
 
     @PostMapping()
-    public ResponseEntity addQuestion(@RequestBody QuestionWithAnswers questionWithAnswers) {
+    public ResponseEntity addQuestion(@RequestBody QuizAndQuestionWithAnswers quizAndQuestionWithAnswers) {
+        Quiz quiz = quizAndQuestionWithAnswers.getQuiz();
+        QuestionWithAnswers questionWithAnswers = quizAndQuestionWithAnswers.getQuestionWithAnswers();
+        System.out.println(quiz);
         System.out.println(questionWithAnswers);
+        quizService.save(quiz);
         return ResponseEntity.status(HttpStatus.OK).body(questionService.addQuestionWithAnswers(questionWithAnswers));
     }
 }

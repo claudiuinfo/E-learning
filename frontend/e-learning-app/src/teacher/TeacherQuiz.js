@@ -121,12 +121,19 @@ class TeacherQuiz extends Component{
   }
 
   addQuestion = () => {
+    let quiz = this.state.quiz;
+    quiz.noQuestions = this.state.questions.length + 1
+    this.setState({quiz})
+
 		let newForm = {
-      question: {
-        quizId: this.state.quizId,
-        question: this.state.question
-      },
-      answers: this.state.allAnswers
+      quiz: quiz,
+      questionWithAnswers: {
+        question: {
+          quizId: this.state.quizId,
+          question: this.state.question
+        },
+        answers: this.state.allAnswers
+      }
     }    
 		console.log(newForm);
 
