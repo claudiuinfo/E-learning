@@ -10,11 +10,15 @@ function StudentQuiz({match}) {
   console.log(params);
   const [questions, setQuestions] = useState([]);
   const [allAnswers, setAllAnswers] = useState([]);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => { 
-    Axios.get("http://localhost:8081/quiz/" + params.quizId).then( (response) => { 
+    Axios.get("http://localhost:8081/quiz/student/" + params.quizId + "?studentId=" + params.studentId).then( (response) => { 
       console.log(response);
       setQuiz(response.data);
+      if (response.data.status == "completed") {
+        setIsCompleted(true);
+      }
     });
 
     Axios.get("http://localhost:8081/question/all/" + params.quizId).then( (response) => { 
@@ -29,7 +33,7 @@ function StudentQuiz({match}) {
         setAllAnswers(x);
         console.log(x)
     });
-  }, []);
+  }, [isCompleted]);
 
   const startQuiz = () => {
     setQuizIsStarted(true);
@@ -48,6 +52,7 @@ function StudentQuiz({match}) {
     Axios.post("http://localhost:8081/quiz/submit/" + params.quizId + "?studentId=" + params.studentId, x).then( (response) => {
         console.log("succes");
         console.log(response.data);
+        setIsCompleted(true);
       });
   }
 
@@ -66,10 +71,10 @@ function StudentQuiz({match}) {
     console.log(allAnswers);
   }
 
-  const renderQuestion = (element) => {
+  const renderQuestion = (element, index) => {
     //console.log(element)
     return <div className="title">
-        <h2>{element.question.question}</h2>
+        <h2>{index+1}) {element.question.question}</h2>
         {
           element.answers.map( (e, i) => {
             return <div className="form-check">
@@ -87,26 +92,39 @@ function StudentQuiz({match}) {
       </div>
   }
 
+  const renderIfCompleted = () => {
+    return <div>
+      StudentQuiz
+      Quiz with id {quiz.id} completed with a score of {quiz.score} of {quiz.noQuestions}
+    </div>
+  }
+
+  const renderIfNotCompleted = () => {
+    return  <div>
+    StudentQuiz
+    Quiz with id {quiz.id} by teacher with id {quiz.teacherId}
+    {quizIsStarted ?
+      (
+        <div>
+          <Timer hours={0} minutes={1} />
+          {questions.map( (element, index) => {
+            return (
+              renderQuestion(element, index)
+            );
+          })}
+          <button type="button" className="btn btn-primary" onClick={submitQuiz}>Submit quiz!</button>
+        </div>
+      ) : 
+      (
+        <button type="button" className="btn btn-primary" onClick={startQuiz}>Start quiz!</button>
+      )
+    }
+  </div>
+  }
+
     return (
       <div>
-        StudentQuiz
-        Quiz with id {quiz.id} by teacher with id {quiz.teacherId}
-        {quizIsStarted ?
-          (
-            <div>
-              <Timer hours={0} minutes={1} />
-              {questions.map( (element, index) => {
-                return (
-                  renderQuestion(element)
-                );
-              })}
-              <button type="button" className="btn btn-primary" onClick={submitQuiz}>Submit quiz!</button>
-            </div>
-          ) : 
-          (
-            <button type="button" className="btn btn-primary" onClick={startQuiz}>Start quiz!</button>
-          )
-        }
+        {isCompleted ? renderIfCompleted() : renderIfNotCompleted()}
       </div>
     );
 }

@@ -40,6 +40,14 @@ public class QuizService {
         return quiz;
     }
 
+    public Quiz getQuizByIdForStudent(Integer id, Integer studentId) {
+        Quiz quiz = quizRepository.findById(id).get();
+        quiz.updateStatus();
+        Score score = findScoreByStudentId(studentId, quiz.getId());
+        quiz.updateStatus(score);
+        return quiz;
+    }
+
     public List<Quiz> findAllByTeacherId(Integer tid) {
         List<Quiz> quizzes = quizRepository.findAllByTeacherId(tid);
         for (Quiz quiz : quizzes) {

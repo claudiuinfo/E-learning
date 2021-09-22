@@ -17,7 +17,8 @@ class TeacherQuiz extends Component{
       numberOfAnswers: 0,
       quizId: props.match.params.quizId,
       quiz: {},
-      questions: []
+      questions: [],
+      questionNo: 0
     }; 
 
     Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
@@ -135,12 +136,12 @@ class TeacherQuiz extends Component{
       });
   }
   
-  renderQuestion = element => {
+  renderQuestion = (element, index) => {
     console.log(element)
-
+   
     return <div className="title">
 
-        <div className="left-but"><h2>{element.question.question}</h2></div>
+        <div className="left-but"><h2>{index+1}) {element.question.question}</h2></div>
         <div className="btn-group right-but">
             <button type="button" className="btn btn-primary">Edit</button>
             <button type="button" className="btn btn-danger">Delete</button>
@@ -203,7 +204,7 @@ class TeacherQuiz extends Component{
 
       {this.state.questions.map( (element, index) => {
         return (
-          this.renderQuestion(element)
+          this.renderQuestion(element, index)
         );
       })}
       </div>

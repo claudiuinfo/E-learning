@@ -40,6 +40,12 @@ public class QuizController {
         return ResponseEntity.status(HttpStatus.OK).body(quizService.getQuizById(id));
     }
 
+    @GetMapping("/student/{quizId}")
+    public ResponseEntity<Quiz> getQuizByIdForStudent(@RequestParam(name="studentId") Integer studentId, @PathVariable(name = "quizId") Integer id) {
+        System.out.println(studentId);
+        return ResponseEntity.status(HttpStatus.OK).body(quizService.getQuizByIdForStudent(id, studentId));
+    }
+
     @PostMapping
     public ResponseEntity<Quiz> createQuiz(@RequestBody QuizForm quizForm) {
         Quiz quiz = quizForm.getQuiz();
