@@ -60,3 +60,9 @@ CREATE TABLE `e-learning`.`files` (
   `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 )
+
+
+ALTER TABLE `e-learning`.`quiz` 
+CHANGE COLUMN `no_questions` `no_questions` TINYINT NULL DEFAULT 0 ;
+ADD COLUMN `timer_h` INT NULL DEFAULT 0 AFTER `due_date`;
+ADD COLUMN `timer_m` INT NULL DEFAULT 0 AFTER `timer_h`;

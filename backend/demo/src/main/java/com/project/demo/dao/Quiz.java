@@ -24,6 +24,10 @@ public class Quiz {
     int isActive;
     @Column(name="due_date")
     LocalDateTime dueDate;
+    @Column(name="timer_h")
+    int timerH;
+    @Column(name="timer_m")
+    int timerM;
     @JsonInclude()
     @Transient
     String status;
