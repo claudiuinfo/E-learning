@@ -11,6 +11,14 @@ function StudentQuiz({match}) {
   const [questions, setQuestions] = useState([]);
   const [allAnswers, setAllAnswers] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
+
+  useEffect(() => { 
+    if (timerExpired == true) {
+      submitQuiz();
+      setTimerExpired(false);
+    }
+  }, [timerExpired]);
 
   useEffect(() => { 
     Axios.get("http://localhost:8081/quiz/student/" + params.quizId + "?studentId=" + params.studentId).then( (response) => { 
@@ -106,7 +114,7 @@ function StudentQuiz({match}) {
     {quizIsStarted ?
       (
         <div>
-          <Timer hours={quiz.timerH} minutes={quiz.timerM} />
+          <Timer hours={quiz.timerH} minutes={quiz.timerM} setTimerExpired={() => setTimerExpired(true)}/>
           {questions.map( (element, index) => {
             return (
               renderQuestion(element, index)

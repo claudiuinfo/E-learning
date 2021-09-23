@@ -151,6 +151,7 @@ class TeacherQuiz extends Component{
     Axios.post("http://localhost:8081/question", newForm).then( (response) => {
         console.log("succes");
         console.log(response.data);
+        this.addOrDeleteQuestion();
       });
       //this.addOrDeleteQuestion();
   }
@@ -167,6 +168,7 @@ class TeacherQuiz extends Component{
     Axios.delete("http://localhost:8081/question/" + element.question.id, {data: {quiz} }).then( (response) => {
         console.log("succes");
         console.log(response.data);
+        this.addOrDeleteQuestion();
       });
       //this.addOrDeleteQuestion();
   }

@@ -37,6 +37,7 @@ function Timer(props) {
           if (distance < 0) {
             clearInterval(x);
             setDisplay("EXPIRED");
+            props.setTimerExpired();
           }
         }, 1000);
     }
