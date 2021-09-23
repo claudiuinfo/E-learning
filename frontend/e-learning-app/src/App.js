@@ -14,6 +14,7 @@ import AllTeachers from './teacher/AllTeachers';
 import StudentQuiz from './student/StudentQuiz';
 import TeacherQuiz from './teacher/TeacherQuiz';
 import Upload from './teacher/Upload';
+import UploadFiles from './components/upload-files.component';
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
             <TeacherQuiz />
           </Route>
           <Route exact path= "/upload">
-            <Upload />
+            <UploadFiles />
           </Route>
         </Switch>
       </Router>

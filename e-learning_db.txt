@@ -49,3 +49,14 @@ CREATE TABLE `e-learning`.`score` (
 
 ALTER TABLE `e-learning`.`quiz` 
 ADD COLUMN `due_date` DATETIME NULL DEFAULT NULL AFTER `is_active`;
+
+
+
+
+CREATE TABLE `e-learning`.`files` (
+  `id` varchar(255) NOT NULL,
+  `data` longblob,
+  `name` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
