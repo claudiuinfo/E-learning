@@ -155,7 +155,7 @@ class TeacherQuiz extends Component{
         this.addOrDeleteQuestion();
       });
 
-    this.setState({question: '', attributeForm: []});
+    this.setState({question: '', attributeForm: [], allAnswers: []});
       //this.addOrDeleteQuestion();
   }
 
@@ -301,15 +301,43 @@ class TeacherQuiz extends Component{
     }
   }
 
+  makeQuizVisible = () => {
+    let newQuiz = this.state.quiz;
+    newQuiz.isActive = 1;
+
+    Axios.post("http://localhost:8081/quiz", {
+      quiz: newQuiz
+    }).then((response) => {
+      console.log("succes");
+      //alert("Quiz was posted!");
+      console.log(response.data);
+      Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
+      console.log(response);
+      this.setState({quiz: response.data});
+    });
+    });
+  }
+
+  renderQuizVisibilityButton = (element) => {
+    if (element.isActive == 0) {
+     return <div class="mb-10 ml-100">
+          {/* <button type="button" className="btn btn-warning btn-primary" onClick={this.addQuestion}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
+                  <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
+                </svg> Add question!</button> */}
+                <button type="button" class="btn btn-dark" onClick={this.makeQuizVisible}>Make quiz visible</button>
+                
+          </div>
+    }
+  }
 
     render () {
       const { question, answer, isCorrect } = this.state;
 
       return (
-
-          this.displayByQuizStatus(this.state.quiz)
-    
-      
+        <div>
+        {this.renderQuizVisibilityButton(this.state.quiz)}
+        {this.displayByQuizStatus(this.state.quiz)}
+        </div>
       )
     }
 }
