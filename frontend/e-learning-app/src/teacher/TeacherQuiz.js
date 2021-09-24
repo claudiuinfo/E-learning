@@ -57,9 +57,8 @@ class TeacherQuiz extends Component{
       var allAnswers = this.state.allAnswers;
       var all= allAnswers.map(element => {
         if(element.id == event.target.id) {
-          return {id:element.id, answer:event.target.value}
+          return {id:element.id, answer:event.target.value, isCorrect:element.isCorrect}
         } else {
-          return element;
           return element;
         }
       })
@@ -134,12 +133,12 @@ class TeacherQuiz extends Component{
   }
 
   addQuestion = () => {
-    let quiz = this.state.quiz;
-    quiz.noQuestions = this.state.questions.length + 1
-    this.setState({quiz : quiz})
+    let newQuiz = this.state.quiz;
+    newQuiz.noQuestions = this.state.questions.length + 1
+    this.setState({quiz : newQuiz})
 
 		let newForm = {
-      quiz: quiz,
+      quiz: newQuiz,
       questionWithAnswers: {
         question: {
           quizId: this.state.quizId,
@@ -155,19 +154,21 @@ class TeacherQuiz extends Component{
         console.log(response.data);
         this.addOrDeleteQuestion();
       });
+
+    this.setState({question: '', attributeForm: []});
       //this.addOrDeleteQuestion();
   }
 
   deleteQuestion = (element) => {
-    let quiz = this.state.quiz;
-    quiz.noQuestions = this.state.questions.length - 1;
-    this.setState({quiz : quiz})
+    let newQuiz = this.state.quiz;
+    newQuiz.noQuestions = this.state.questions.length - 1;
+    this.setState({quiz : newQuiz})
 
-		let newForm = quiz;
+		let newForm = newQuiz;
 
 		console.log(newForm);
 
-    Axios.delete("http://localhost:8081/question/" + element.question.id, {data: {quiz} }).then( (response) => {
+    Axios.delete("http://localhost:8081/question/" + element.question.id, {data: {newQuiz} }).then( (response) => {
         console.log("succes");
         console.log(response.data);
         this.addOrDeleteQuestion();
