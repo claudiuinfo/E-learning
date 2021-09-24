@@ -7,6 +7,7 @@ import AddQuizModal from './AddQuizModal';
 function Teacher() {
   const [quizList, setQuizList] = useState([]);
   const [quizStatus, setQuizStatus] = useState("all");
+  const [quizAdded, setQuizAdded] = useState(0);
   let params = useParams();
   console.log(params);
 
@@ -21,7 +22,7 @@ function Teacher() {
           }));
       }
     });
-  }, [quizStatus]);
+  }, [quizStatus, quizAdded]);
 
     const addQuiz = () => {
       let newQuiz = {
@@ -79,7 +80,7 @@ function Teacher() {
             );
           })}
         </div>
-        <AddQuizModal />
+        <AddQuizModal setQuizAdded={() => setQuizAdded(quizAdded+1)} />
       </div>
     );
 }

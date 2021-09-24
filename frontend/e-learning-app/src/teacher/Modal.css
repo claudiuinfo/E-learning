@@ -2,9 +2,13 @@ div .element{
     margin-top: 10px;
 } 
 
-input[type=text], [type=datetime-local]{
+input[type=text]{
     margin: 0 2% 0 5%; 
     width: 30%;
+}
+
+input[type=datetime-local]{
+    margin-left: 20px;
 }
 
 input[type=checkbox]{
