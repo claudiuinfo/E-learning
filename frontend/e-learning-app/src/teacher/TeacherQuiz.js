@@ -315,13 +315,21 @@ class TeacherQuiz extends Component{
     Axios.post("http://localhost:8081/quiz", {
       quiz: newQuiz
     }).then((response) => {
+      
       console.log("succes");
       //alert("Quiz was posted!");
       console.log(response.data);
       Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
       console.log(response);
       this.setState({quiz: response.data});
-    });
+      });
+
+      Axios.post("http://localhost:8081/mail/students/" + this.state.quizId).then((response) => {
+      console.log("succes");
+      //alert("Quiz was posted!");
+      console.log(response.data);
+      });
+  
     });
   }
 

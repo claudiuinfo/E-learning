@@ -2,6 +2,7 @@ package com.project.demo.service;
 
 import com.project.demo.dao.Score;
 import com.project.demo.dao.Student;
+import com.project.demo.mail.SendMail;
 import com.project.demo.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -23,4 +23,8 @@ public class TeacherService {
         return teacherRepository.save(teacher);
     }
 
+    public Teacher getById(Integer id) {
+        return teacherRepository.getById(id);
+    }
+
 }

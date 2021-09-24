@@ -64,5 +64,14 @@ CREATE TABLE `e-learning`.`files` (
 
 ALTER TABLE `e-learning`.`quiz` 
 CHANGE COLUMN `no_questions` `no_questions` TINYINT NULL DEFAULT 0 ;
+
+ALTER TABLE `e-learning`.`quiz` 
 ADD COLUMN `timer_h` INT NULL DEFAULT 0 AFTER `due_date`;
+
+ALTER TABLE `e-learning`.`quiz` 
 ADD COLUMN `timer_m` INT NULL DEFAULT 0 AFTER `timer_h`;
+
+
+-----
+testelearning57@gmail.com
+Test1234.
