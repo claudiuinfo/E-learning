@@ -8,21 +8,31 @@ function Teacher() {
   const [quizList, setQuizList] = useState([]);
   const [quizStatus, setQuizStatus] = useState("all");
   const [quizAdded, setQuizAdded] = useState(0);
+  const [quizVisibility, setQuizVisibility] = useState(-1);
   let params = useParams();
   console.log(params);
 
   useEffect(() => { 
     Axios.get("http://localhost:8081/quiz/all/" + params.teacherId).then( (response) => { 
       console.log(response);
+      let newQuizList = [];
       if (quizStatus == "all") {
-        setQuizList(response.data);
+        newQuizList = response.data;
       } else {
-          setQuizList(response.data.filter((element, index) => {
+          newQuizList = response.data.filter((element, index) => {
             return quizStatus == element.status;  
-          }));
+          });
       }
+
+      if (quizVisibility == -1) {
+        setQuizList(newQuizList);
+      } else {
+        setQuizList(newQuizList.filter((element, index) => {
+          return quizVisibility == element.isActive;  
+        }));
+      } 
     });
-  }, [quizStatus, quizAdded]);
+  }, [quizStatus, quizVisibility, quizAdded]);
 
     const addQuiz = () => {
       let newQuiz = {
@@ -65,6 +75,11 @@ function Teacher() {
       setQuizStatus(e.target.value);
     }
 
+    const handleSelectedVisibilityChange = (e) => {
+      console.log(e.target.value);
+      setQuizVisibility(e.target.value);
+    }
+
     return (
       <div>
         Teacher
@@ -72,6 +87,11 @@ function Teacher() {
           <option value="all">All status</option>
           <option value="active">ACTIVE</option>
           <option value="expired">FINISHED</option>
+        </select>
+        <select onChange={e => handleSelectedVisibilityChange(e)} className="form-select" aria-label="Filter for quizzes">
+          <option value={-1}>All visibility</option>
+          <option value={1}>VISIBLE</option>
+          <option value={0}>NOT VISIBLE</option>
         </select>
         <div className="list-group">
           {quizList.map( (element, index) => {

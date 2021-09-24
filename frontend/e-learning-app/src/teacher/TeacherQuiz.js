@@ -168,7 +168,7 @@ class TeacherQuiz extends Component{
 
 		console.log(newForm);
 
-    Axios.delete("http://localhost:8081/question/" + element.question.id, {data: {newQuiz} }).then( (response) => {
+    Axios.delete("http://localhost:8081/question/" + element.question.id, {data: {quiz: newQuiz} }).then( (response) => {
         console.log("succes");
         console.log(response.data);
         this.addOrDeleteQuestion();
@@ -207,17 +207,41 @@ class TeacherQuiz extends Component{
       </div>
   }
 
-    render () {
-      const { question, answer, isCorrect } = this.state;
+  renderQuestionFinished = (element, index) => {
+    console.log(element)
+   
+    return <div className="title">
 
-      return (
+        <div className="left-but"><h2>{index+1}) {element.question.question}</h2></div>
+        <div className="btn-group right-but">
+        
+        </div>
+
+
+        {
+          element.answers.map( (e, i) => {
+
+            return <div><ul className="list-group">
+              <li style={{ background: e.isCorrect ? '#53c685' : '#fff8dc' }} class="list-group-item ans">{e.answer}</li>
+            </ul>
+                </div>
+
+          })
+        }
+      </div>
+  }
+
+  displayByQuizStatus = (element) => {
+    switch(element.status) {
+      case 'active':
+        return (   
         <div>
         <form onSubmit={this.handleSubmit}>
 				<div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label">Question</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" value={question}
+            <input type="text" class="form-control" value={this.state.question}
 						onChange={this.handleQuestionsChange} id="inputPassword" placeholder="Input of question"/>
           </div>
 				</div>
@@ -257,6 +281,34 @@ class TeacherQuiz extends Component{
         );
       })}
       </div>
+        );
+        break;
+      case 'expired':
+        return (   
+          <div>
+          
+        {this.state.questions.map( (element, index) => {
+          return (
+            this.renderQuestionFinished(element, index)
+          );
+        })}
+        </div>
+          );
+          break;
+        break;
+      default:
+        return <p>DEFAULT</p>
+    }
+  }
+
+
+    render () {
+      const { question, answer, isCorrect } = this.state;
+
+      return (
+
+          this.displayByQuizStatus(this.state.quiz)
+    
       
       )
     }
