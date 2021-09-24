@@ -6,6 +6,7 @@ import '../App.css'
 import './style.css';
 import 'bootstrap';
 import Button from 'react-bootstrap/Button';
+import {ExportToExcel} from './ExportToExcel'
 
 class TeacherQuiz extends Component{
   constructor(props) {
@@ -20,7 +21,8 @@ class TeacherQuiz extends Component{
       quizId: props.match.params.quizId,
       quiz: {},
       questions: [],
-      questionNo: 0
+      questionNo: 0,
+      listOfStudentsGrades: []
     }; 
 
     Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
@@ -31,6 +33,11 @@ class TeacherQuiz extends Component{
     Axios.get("http://localhost:8081/question/all/" + this.state.quizId).then( (response) => { 
         console.log(response);
         this.setState({questions: response.data});
+    });
+
+    Axios.get("http://localhost:8081/score/all/" + this.state.quizId).then( (response) => { 
+        console.log(response);
+        this.setState({listOfStudentsGrades: response.data});
     });
   } 
 
@@ -286,7 +293,7 @@ class TeacherQuiz extends Component{
       case 'expired':
         return (   
           <div>
-          
+           <ExportToExcel apiData={this.state.listOfStudentsGrades} fileName={"listOfStudentsGrades"} />
         {this.state.questions.map( (element, index) => {
           return (
             this.renderQuestionFinished(element, index)

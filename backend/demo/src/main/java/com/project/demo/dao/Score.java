@@ -1,5 +1,6 @@
 package com.project.demo.dao;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +18,9 @@ public class Score {
     int quizId;
     @Column(name="max_score")
     int maxScore;
+    @JsonInclude()
+    @Transient
+    String studentName;
 
     public Score() {
         maxScore = 0;
