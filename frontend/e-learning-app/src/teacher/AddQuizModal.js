@@ -77,7 +77,7 @@ class AddQuizModal extends Component {
     let newQuiz = {
       teacherId: this.props.match.params.teacherId,
       noQuestions: 0,
-      isActive: this.state.isActive,
+      isActive: 0,
       dueDate: this.state.dueDate,
       timerH: this.state.timerH,
       timerM: this.state.timerM
@@ -113,14 +113,6 @@ class AddQuizModal extends Component {
             <Modal.Title>Add new quiz</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div class="element">
-              <label>The quiz state</label>
-              <input
-                type="checkbox" name="service"
-                value={1}
-                onChange={this.handleStateChange}
-              />Visible
-            </div>
             <div class="element">
               <label>Due Date</label>
               <input
