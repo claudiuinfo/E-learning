@@ -4,6 +4,8 @@ import { useParams,  withRouter } from 'react-router';
 import App from '../App';
 import '../App.css'
 import './style.css';
+import 'bootstrap';
+import Button from 'react-bootstrap/Button';
 
 class TeacherQuiz extends Component{
   constructor(props) {
@@ -99,7 +101,7 @@ class TeacherQuiz extends Component{
         <div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label">Answer</label>
-          <div class="col-sm-5">
+          <div class="col-sm-3">
             <input  id={numberOfAnswers}
               name="text" class="form-control"
               onChange={this.handleAnswerChange} placeholder="Type here"/>
@@ -180,8 +182,14 @@ class TeacherQuiz extends Component{
 
         <div className="left-but"><h2>{index+1}) {element.question.question}</h2></div>
         <div className="btn-group right-but">
-            <button type="button" className="btn btn-primary">Edit</button>
-            <button type="button" className="btn btn-danger" onClick={() => this.deleteQuestion(element)}>Delete</button>
+        <Button variant="outline-info">Edit</Button>
+           {/* <button type="button" className="btn btn-primary">Edit</button> */}
+           {/* <a href="#" class="btn btn-primary a-btn-slide-text btn btn-outline-danger" onClick={() => this.deleteQuestion(element)}>
+       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <span><strong>Delete</strong></span>             */}
+        <Button variant="outline-danger" onClick={() => this.deleteQuestion(element)} >Delete</Button>
+   
+            {/* <button type="button" className="btn btn-danger" onClick={() => this.deleteQuestion(element)}>Delete</button> */}
         </div>
 
 
@@ -189,7 +197,7 @@ class TeacherQuiz extends Component{
           element.answers.map( (e, i) => {
 
             return <div><ul className="list-group">
-              <li style={{ background: e.isCorrect ? '#00FA9A' : '#FFB6C1' }} class="list-group-item ans">{e.answer}</li>
+              <li style={{ background: e.isCorrect ? '#53c685' : '#fff8dc' }} class="list-group-item ans">{e.answer}</li>
             </ul>
                 </div>
 
@@ -207,7 +215,7 @@ class TeacherQuiz extends Component{
 				<div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label">Question</label>
-          <div class="col-sm-5">
+          <div class="col-sm-7">
             <input type="text" class="form-control" value={question}
 						onChange={this.handleQuestionsChange} id="inputPassword" placeholder="Input of question"/>
           </div>
@@ -226,16 +234,19 @@ class TeacherQuiz extends Component{
                   <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
                 </svg>  ADD ANSWER</button> */}
 
-<button type="button" class="btn btn-warning btn-sm btn-lg"  onClick={this.addAttributeForm.bind(this)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
+{/* <button type="button" class="btn btn-warning btn-sm btn-lg"  onClick={this.addAttributeForm.bind(this)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
                   <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
-                </svg> Add <span class="glyphicon glyphicon-ok"></span></button>
+                </svg> Add <span class="glyphicon glyphicon-ok"></span></button> */}
+                <button type="button" class="btn btn-dark" onClick={this.addAttributeForm.bind(this)}>Add</button>
               </div>
           </div>
           </div>
-          <div class="mb-8 ml-100">
-          <button type="button" className="btn btn-warning btn-primary" onClick={this.addQuestion}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
+          <div class="mb-10 ml-100">
+          {/* <button type="button" className="btn btn-warning btn-primary" onClick={this.addQuestion}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
                   <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
-                </svg> Add question!</button>
+                </svg> Add question!</button> */}
+                <button type="button" class="btn btn-dark" onClick={this.addQuestion}>Add question</button>
+                
           </div>
       </form>
 
