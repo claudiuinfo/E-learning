@@ -31,4 +31,8 @@ public class AnswerService {
     public List<Answer> findAllCorrectByQuestionId(Integer questionId) {
         return answerRepository.findAllCorrectByQuestionId(questionId);
     }
+
+    public Integer deleteByQuestionId(Integer questionId){
+        return answerRepository.deleteByQuestionId(questionId);
+    }
 }

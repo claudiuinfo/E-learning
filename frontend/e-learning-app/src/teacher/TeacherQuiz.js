@@ -6,7 +6,8 @@ import '../App.css'
 import './style.css';
 import 'bootstrap';
 import Button from 'react-bootstrap/Button';
-import {ExportToExcel} from './ExportToExcel'
+import {ExportToExcel} from './ExportToExcel';
+import EditQuizTeacher from './EditQuizTeacher';
 
 class TeacherQuiz extends Component{
   constructor(props) {
@@ -22,7 +23,8 @@ class TeacherQuiz extends Component{
       quiz: {},
       questions: [],
       questionNo: 0,
-      listOfStudentsGrades: []
+      listOfStudentsGrades: [],
+      show: false
     }; 
 
     Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
@@ -190,7 +192,8 @@ class TeacherQuiz extends Component{
 
         <div className="left-but"><h2>{index+1}) {element.question.question}</h2></div>
         <div className="btn-group right-but">
-        <Button variant="outline-info">Edit</Button>
+          {console.log(element.question.id)}
+        <EditQuizTeacher questionId={element.question.id} refreshPage={() => this.addOrDeleteQuestion()}/>
            {/* <button type="button" className="btn btn-primary">Edit</button> */}
            {/* <a href="#" class="btn btn-primary a-btn-slide-text btn btn-outline-danger" onClick={() => this.deleteQuestion(element)}>
        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

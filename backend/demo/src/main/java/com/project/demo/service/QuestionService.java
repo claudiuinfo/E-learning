@@ -35,7 +35,7 @@ public class QuestionService {
     }
 
     public Question getById(Integer id) {
-        return questionRepository.getById(id);
+        return questionRepository.findById(id).get();
     }
 
     public Question addQuestion(Question question) {
@@ -65,5 +65,22 @@ public class QuestionService {
         question.setId(id);
         questionRepository.deleteById(id);
         return question;
+    }
+
+    public QuestionWithAnswers editQuestionWithAnswers(Integer id,QuestionWithAnswers questionWithAnswers) {
+        Question question = addQuestion(questionWithAnswers.getQuestion());
+        question.setId(id);
+        List<Answer> answers = questionWithAnswers.getAnswers();
+        QuestionWithAnswers newQuestionWithAnswers = new QuestionWithAnswers();
+        newQuestionWithAnswers.setQuestion(question);
+        List<Answer> newAnswers = new ArrayList<>();
+        for (Answer answer : answers) {
+            answer.setId(0);
+            answer.setQuestionId(question.getId());
+            newAnswers.add(answerService.addAnswer(answer));
+
+        }
+        newQuestionWithAnswers.setAnswers(newAnswers);
+        return newQuestionWithAnswers;
     }
 }
