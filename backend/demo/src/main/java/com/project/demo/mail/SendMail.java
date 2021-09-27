@@ -16,13 +16,13 @@ public class SendMail {
 
     }
 
-    public void sendMail(String to, String msg) {
+    public void sendMail(String to, String msg, String subject) {
 
         // Recipient's email ID needs to be mentioned.
 
 
         // Sender's email ID needs to be mentioned
-        String from = "testelearning57@gmail.com";
+        String from = "testelearning58@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
@@ -61,7 +61,7 @@ public class SendMail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("New quiz is active");
+            message.setSubject(subject);
 
             // Now set the actual message
             message.setText(msg);

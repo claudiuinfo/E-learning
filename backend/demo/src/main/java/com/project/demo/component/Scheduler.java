@@ -21,7 +21,7 @@ public class Scheduler {
     TeacherService teacherService;
 
     //"h * m * s * 1000"
-    @Scheduled(fixedRate = 5 * 1000)
+    @Scheduled(fixedRate = 10 * 1000)
     public void sendMailToTeachers() {
         SendMail sendMail = new SendMail();
         List<Quiz> quizList = quizService.findAll();
@@ -30,7 +30,7 @@ public class Scheduler {
                 System.out.println(quiz);
                 Teacher teacher = teacherService.getById(quiz.getTeacherId());
                 sendMail.sendMail(teacher.getMail(), "Hello " + teacher.getName() + ", quiz with id " + quiz.getId()
-                        + " is finished, you can enter to download the student results");
+                        + " is finished, you can enter to download the student results", "Quiz finished");
                 quiz.setMailSent(1);
                 quizService.save(quiz);
             }

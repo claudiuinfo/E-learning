@@ -28,7 +28,7 @@ public class MailService {
         List<Student> students = studentService.findAll();
         for (Student student : students) {
             sendMail.sendMail(student.getMail(), "Hello " + student.getName() + ", teacher " + teacher.getName() +
-                    " create a new quiz with id " + quizId + " and due date " + quiz.getDueDate());
+                    " create a new quiz with id " + quizId + " and due date " + quiz.getDueDate(), "New quiz is active");
         }
 
     }
