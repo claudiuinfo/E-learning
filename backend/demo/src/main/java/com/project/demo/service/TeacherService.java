@@ -24,7 +24,7 @@ public class TeacherService {
     }
 
     public Teacher getById(Integer id) {
-        return teacherRepository.getById(id);
+        return teacherRepository.findById(id).get();
     }
 
 }

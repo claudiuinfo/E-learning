@@ -28,12 +28,15 @@ public class Quiz {
     int timerH;
     @Column(name="timer_m")
     int timerM;
+    @Column(name="mail_sent")
+    int mailSent;
     @JsonInclude()
     @Transient
     String status;
     @JsonInclude()
     @Transient
     int score;
+
 
     public void updateStatus() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
