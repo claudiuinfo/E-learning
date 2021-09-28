@@ -122,17 +122,42 @@ class UploadFiles extends Component {
           {message}
         </div>
 
-        <div className="card">
+        {/*<div className="card">
           <div className="card-header">List of Files</div>
           <ul className="list-group list-group-flush">
             {fileInfos &&
               fileInfos.map((file, index) => (
                 <li className="list-group-item" key={index}>
-                  <a href={file.url}>{file.name} {file.ownerRole}</a>
+                  <a href={file.url}>{file.name}</a>
                 </li>
               ))}
           </ul>
-        </div>
+              </div>*/}
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Owner Name</th>
+              <th scope="col">Owner Role</th>
+              <th scope="col">Post Date</th>
+              <th scope="col">File</th>
+            </tr>
+          </thead>
+          <tbody>
+          {fileInfos &&
+              fileInfos.map((file, index) => (
+                <tr>
+                <th scope="row">{index + 1}</th>
+                <td>{file.ownerName}</td>
+                <td>{file.ownerRole}</td>
+                <td>{file.postDate}</td>
+                <td><a href={file.url}>{file.name}</a></td>
+              </tr>
+              ))}
+          </tbody>
+        </table>
+
       </div>
     );
   }

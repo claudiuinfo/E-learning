@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { useParams } from 'react-router';
 import Form from './Form';
 import AddQuizModal from './AddQuizModal';
+import { Link } from 'react-router-dom';
 
 function Teacher() {
   const [quizList, setQuizList] = useState([]);
@@ -83,7 +84,14 @@ function Teacher() {
     return (
       <div className="container">
         Teacher
-        <a href={"http://localhost:3000/upload/"} className="list-group-item list-group-item-action list-group-item-info">Go to upload page</a>
+        <Link to={{
+          pathname: "/upload/",
+          state: {
+            ownerId: params.teacherId,
+            ownerRole: "teacher"
+          }
+        }}
+        className="list-group-item list-group-item-action list-group-item-info">Go to upload page</Link>
         <select onChange={e => handleSelectedStatusChange(e)} className="form-select" aria-label="Filter for quizzes">
           <option value="all">All status</option>
           <option value="active">ACTIVE</option>
