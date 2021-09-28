@@ -68,8 +68,10 @@ public class QuestionService {
     }
 
     public QuestionWithAnswers editQuestionWithAnswers(Integer id,QuestionWithAnswers questionWithAnswers) {
-        Question question = addQuestion(questionWithAnswers.getQuestion());
-        question.setId(id);
+        Question question1 = questionWithAnswers.getQuestion();
+        question1.setId(id);
+        Question question = addQuestion(question1);
+        //question.setId(id);
         List<Answer> answers = questionWithAnswers.getAnswers();
         QuestionWithAnswers newQuestionWithAnswers = new QuestionWithAnswers();
         newQuestionWithAnswers.setQuestion(question);

@@ -1,16 +1,34 @@
 package com.project.demo.message;
 
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
 public class ResponseFile {
     private String name;
     private String url;
     private String type;
     private long size;
+    private String ownerName;
+    private String ownerRole;
+    private LocalDateTime postDate;
 
     public ResponseFile(String name, String url, String type, long size) {
         this.name = name;
         this.url = url;
         this.type = type;
         this.size = size;
+    }
+
+    public ResponseFile(String name, String url, String type, long size, String ownerName, String ownerRole, LocalDateTime postDate) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.size = size;
+        this.ownerName = ownerName;
+        this.ownerRole = ownerRole;
+        this.postDate = postDate;
     }
 
     public String getName() {

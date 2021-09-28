@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function Student(props) {
     const [quizList, setQuizList] = useState([]);
@@ -82,6 +83,14 @@ function Student(props) {
     return (
       <div className="container">
         Student
+        <Link to={{
+          pathname: "/upload/",
+          state: {
+            ownerId: params.studentId,
+            ownerRole: "student"
+          }
+        }}
+        className="list-group-item list-group-item-action list-group-item-info">Go to upload page</Link>
         <select onChange={e => handleSelectedTeacherChange(e)} className="form-select" aria-label="Filter for quizzes">
           <option value={0}>All teachers</option>
           {teacherList.map( (element, index) => {

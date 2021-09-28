@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import UploadService from "../services/upload-files.service";
+import { useLocation } from "react-router-dom";
+import { withRouter } from "react-router";
 
-export default class UploadFiles extends Component {
+class UploadFiles extends Component {
   constructor(props) {
     super(props);
     this.selectFile = this.selectFile.bind(this);
@@ -15,6 +17,10 @@ export default class UploadFiles extends Component {
 
       fileInfos: [],
     };
+
+   // const location = useLocation();
+    console.log("Location ")
+    console.log(props.location.state)
   }
 
   componentDidMount() {
@@ -33,13 +39,19 @@ export default class UploadFiles extends Component {
 
   upload() {
     let currentFile = this.state.selectedFiles[0];
+    let ownerId = this.props.location.state.ownerId;
+    let ownerRole = this.props.location.state.ownerRole;
+    
+    //currentFile = {...currentFile, ownerName: "marius", ownerRole: "teacher", postDate: "2021-09-28 00:45:00"}
+
+    console.log(currentFile)
 
     this.setState({
       progress: 0,
       currentFile: currentFile,
     });
 
-    UploadService.upload(currentFile, (event) => {
+    UploadService.upload(ownerId, ownerRole, currentFile, (event) => {
       this.setState({
         progress: Math.round((100 * event.loaded) / event.total),
       });
@@ -116,7 +128,7 @@ export default class UploadFiles extends Component {
             {fileInfos &&
               fileInfos.map((file, index) => (
                 <li className="list-group-item" key={index}>
-                  <a href={file.url}>{file.name}</a>
+                  <a href={file.url}>{file.name} {file.ownerRole}</a>
                 </li>
               ))}
           </ul>
@@ -125,3 +137,5 @@ export default class UploadFiles extends Component {
     );
   }
 }
+
+export default withRouter(UploadFiles)

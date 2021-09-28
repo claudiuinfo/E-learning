@@ -81,8 +81,9 @@ function Teacher() {
     }
 
     return (
-      <div>
+      <div className="container">
         Teacher
+        <a href={"http://localhost:3000/upload/"} className="list-group-item list-group-item-action list-group-item-info">Go to upload page</a>
         <select onChange={e => handleSelectedStatusChange(e)} className="form-select" aria-label="Filter for quizzes">
           <option value="all">All status</option>
           <option value="active">ACTIVE</option>

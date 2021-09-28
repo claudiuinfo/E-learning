@@ -1,4 +1,8 @@
-function Menu() {
+import { useLocation } from 'react-router-dom';
+
+function Menu(props) {
+    const location = useLocation();
+    console.log("Location " + location)
     return (
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
             <ul className="navbar-nav">

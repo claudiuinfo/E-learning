@@ -74,6 +74,18 @@ ADD COLUMN `timer_m` INT NULL DEFAULT 0 AFTER `timer_h`;
 ALTER TABLE `e-learning`.`quiz` 
 ADD COLUMN `mail_sent` TINYINT NULL DEFAULT 0 AFTER `timer_m`;
 
+
+ALTER TABLE `e-learning`.`files` 
+ADD COLUMN `owner_name` VARCHAR(45) NULL DEFAULT NULL AFTER `type`,
+ADD COLUMN `owner_role` VARCHAR(45) NULL DEFAULT NULL AFTER `owner_name`,
+ADD COLUMN `post_date` VARCHAR(45) NULL AFTER `owner_role`;
+
+ALTER TABLE `e-learning`.`files` 
+CHANGE COLUMN `post_date` `post_date` DATETIME NULL DEFAULT NULL ;
+
+ALTER TABLE `e-learning`.`files` 
+ADD COLUMN `owner_id` INT NULL AFTER `type`;
+
 -----
 testelearning57@gmail.com
 Test1234.

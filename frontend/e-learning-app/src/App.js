@@ -19,8 +19,8 @@ import UploadFiles from './components/upload-files.component';
 function App() {
   return (
     <div className="App">
-      <Menu />
       <Router>
+        <Menu />
         <Switch>
           <Route exact path="/student">
             <AllStudents />
