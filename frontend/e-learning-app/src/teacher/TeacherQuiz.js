@@ -27,6 +27,8 @@ class TeacherQuiz extends Component{
       show: false
     }; 
 
+    this.initAttributeForm = this.initAttributeForm.bind(this);
+
     Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
       console.log(response);
       this.setState({quiz: response.data});
@@ -42,6 +44,10 @@ class TeacherQuiz extends Component{
         this.setState({listOfStudentsGrades: response.data});
     });
   } 
+
+  componentDidMount() {
+    this.initAttributeForm();
+ }
 
   addOrDeleteQuestion = () => {
     Axios.get("http://localhost:8081/quiz/" + this.state.quizId).then( (response) => { 
@@ -96,6 +102,47 @@ class TeacherQuiz extends Component{
     handleSubmit = event => {
       alert(`${this.state.question}`)
       event.preventDefault()
+    }
+
+    initAttributeForm() {
+      console.log("HEEYY");
+      var array = [];
+      var allAnswers = [];
+      var numberOfAnswers = 0;
+
+      array.push(
+        <div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Answer</label>
+          <div class="col-sm-3">
+            <input  id={numberOfAnswers}
+              name="text" class="form-control"
+              onChange={this.handleAnswerChange} placeholder="Type here"/>
+          </div>
+
+        <div class="col-sm-2 col-form-label">
+      <div class="form-check">
+      <div class="col-sm-4">
+        <input class="form-check-input" type="checkbox"
+              id={"c" + numberOfAnswers}
+              name="text"
+              onChange={this.handleCorrectChange}/>
+        <label class="form-check-label" for="exampleCheckbox">Check
+        </label>
+      </div>
+      </div>
+    </div>
+        </div>
+        </div>
+      );
+
+      allAnswers.push({id:numberOfAnswers, answer:"", isCorrect: 0});
+
+      this.setState({
+          attributeForm: array,
+          numberOfAnswers : numberOfAnswers + 1,
+          allAnswers: allAnswers
+      });
     }
 
     addAttributeForm() {
@@ -162,9 +209,10 @@ class TeacherQuiz extends Component{
         console.log("succes");
         console.log(response.data);
         this.addOrDeleteQuestion();
+        this.setState({question: '', attributeForm: [], allAnswers: []});
+        this.initAttributeForm();
       });
 
-    this.setState({question: '', attributeForm: [], allAnswers: []});
       //this.addOrDeleteQuestion();
   }
 
