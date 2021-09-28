@@ -208,7 +208,9 @@ class TeacherQuiz extends Component{
           element.answers.map( (e, i) => {
 
             return <div><ul className="list-group">
-              <li style={{ background: e.isCorrect ? '#53c685' : '#fff8dc' }} class="list-group-item ans">{e.answer}</li>
+              {e.isCorrect ? <li  class="list-group-item ans">  {e.answer}  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+</svg></li> : <li  class="list-group-item ans">  {e.answer}</li> }
             </ul>
                 </div>
 
@@ -232,7 +234,9 @@ class TeacherQuiz extends Component{
           element.answers.map( (e, i) => {
 
             return <div><ul className="list-group">
-              <li style={{ background: e.isCorrect ? '#53c685' : '#fff8dc' }} class="list-group-item ans">{e.answer}</li>
+              {e.isCorrect ? <li  class="list-group-item ans">  {e.answer}  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+</svg></li> : <li  class="list-group-item ans">  {e.answer}</li> }
             </ul>
                 </div>
 
@@ -250,8 +254,8 @@ class TeacherQuiz extends Component{
 				<div>
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label">Question</label>
-          <div class="col-sm-7">
-            <input type="text" class="form-control" value={this.state.question}
+          <div class="col-sm-8">
+            <input type="text" class="form-control" value={this.state.question} id="question"
 						onChange={this.handleQuestionsChange} id="inputPassword" placeholder="Input of question"/>
           </div>
 				</div>
@@ -263,7 +267,7 @@ class TeacherQuiz extends Component{
                 })
               }
               <div class="mt-2 col-md-12 ">
-              <div class="mb-3 form-check">
+              <div class="mb-3 form-check" style={{ display: "flex" }}>
               
               {/* <button class="btn-sm" onClick={this.addAttributeForm.bind(this)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
                   <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
@@ -272,15 +276,15 @@ class TeacherQuiz extends Component{
 {/* <button type="button" class="btn btn-warning btn-sm btn-lg"  onClick={this.addAttributeForm.bind(this)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
                   <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
                 </svg> Add <span class="glyphicon glyphicon-ok"></span></button> */}
-                <button type="button" class="btn btn-dark" onClick={this.addAttributeForm.bind(this)}>Add</button>
+                <button type="button" class="btn btn-dark"  style={{ marginRight: "auto" }} onClick={this.addAttributeForm.bind(this)}>Add</button>
               </div>
           </div>
           </div>
-          <div class="mb-10 ml-100">
+          <div class="mb-10 ml-100"  style={{ display: "flex" }}>
           {/* <button type="button" className="btn btn-warning btn-primary" onClick={this.addQuestion}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-middle" viewBox="0 0 16 16">
                   <path d="M6 13a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v10zM1 8a.5.5 0 0 0 .5.5H6v-1H1.5A.5.5 0 0 0 1 8zm14 0a.5.5 0 0 1-.5.5H10v-1h4.5a.5.5 0 0 1 .5.5z"/>
                 </svg> Add question!</button> */}
-                <button type="button" class="btn btn-dark" onClick={this.addQuestion}>Add question</button>
+                <button type="button" class="btn btn-dark" style={{ marginRight: "auto" }} onClick={this.addQuestion}>Add question</button>
                 
           </div>
       </form>

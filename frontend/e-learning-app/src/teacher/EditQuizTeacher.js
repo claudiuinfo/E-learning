@@ -136,9 +136,7 @@ class EditQuizTeacher extends Component {
     return (
       <>
         <div className="d-flex align-items-center justify-content-center">
-          <Button variant="primary" style={{}} onClick={this.handleShow}>
-            Edit
-          </Button>
+         <Button variant="outline-info" onClick = {this.handleShow}> Edit </Button>
         </div>
         
         <Modal show={this.state.show} onHide={this.handleClose} animation={true}>
