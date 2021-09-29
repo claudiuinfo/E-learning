@@ -68,10 +68,12 @@ public class QuizController {
 
     @GetMapping("/all/active/{teacherId}")
     @ResponseBody
-    public List<Quiz> findActiveByTeacherId(@PathVariable(name = "teacherId") Integer tid){
+    public List<Quiz> findActiveByTeacherId(@PathVariable(name = "teacherId") Integer tid, @RequestParam(name="studentId") Integer studentId){
         List<Quiz> quizList = this.jdbcTemplate.query("SELECT * FROM quiz WHERE is_active <> 0 AND teacher_id = " + tid,new QuizRowMapper());
         for (Quiz quiz : quizList) {
             quiz.updateStatus();
+            Score score = quizService.findScoreByStudentId(studentId, quiz.getId());
+            quiz.updateStatus(score);
         }
         System.out.println(quizList);
         return quizList;
