@@ -45,7 +45,6 @@ function Timer(props) {
 	
 		return (
                 <div>
-                    <p>Yolo {props.hours}:{props.minutes}</p>
                     <p>{display}</p>
                 </div>
         );

@@ -6,6 +6,12 @@
     table-layout: fixed;
 }
 
+.titleQuestion{
+    display: table; /* keep the background color wrapped tight */
+    padding:5px;font-size:20px;background-color:black;color: white;
+    table-layout: fixed;
+}
+
 
 .ans{
     color: #282c34;

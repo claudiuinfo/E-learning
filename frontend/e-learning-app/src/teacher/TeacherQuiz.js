@@ -105,7 +105,6 @@ class TeacherQuiz extends Component{
     }
 
     initAttributeForm() {
-      console.log("HEEYY");
       var array = [];
       var allAnswers = [];
       var numberOfAnswers = 0;
@@ -238,6 +237,7 @@ class TeacherQuiz extends Component{
    
     return <div className="title">
 
+        <div className="titleQuestion"> 
         <div className="left-but"><h2>{index+1}) {element.question.question}</h2></div>
         <div className="btn-group right-but">
           {console.log(element.question.id)}
@@ -250,8 +250,9 @@ class TeacherQuiz extends Component{
    
             {/* <button type="button" className="btn btn-danger" onClick={() => this.deleteQuestion(element)}>Delete</button> */}
         </div>
-
-
+        </div>
+        
+        <div>
         {
           element.answers.map( (e, i) => {
 
@@ -264,6 +265,7 @@ class TeacherQuiz extends Component{
 
           })
         }
+        </div>
       </div>
   }
 

@@ -2,30 +2,48 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 function Menu(props) {
-    const [studentIsActive, setStudentIsActive] = useState(false);
-    const [teacherIsActive, setTeacherIsActive] = useState(false);
+    //const [studentIsActive, setStudentIsActive] = useState(false);
+    //const [teacherIsActive, setTeacherIsActive] = useState(false);
     const [lastLocation, setLastLocation] = useState("");
-    const location = useLocation().pathname;
+    const location = useLocation();
+    const [pathname, setPathname] = useState(location.pathname);
+    console.log("Location menu")
+    console.log(location)
 
-    useEffect(() => {
-        console.log(location)
-        if (location != lastLocation) {
-            setLastLocation(location);
-            console.log(lastLocation)
-        }
-    })
+    const isStudentPath = (location) => {
+        return location.search("student") > 0
+    };
 
-    useEffect(() => {
-        if (lastLocation.search("student")) {
-            setStudentIsActive(true);
-            setTeacherIsActive(false);
-            console.log("studentttt")
-        } else if (lastLocation.search("teacher")) {
-            setStudentIsActive(false);
-            setTeacherIsActive(true);
-            console.log("teacherrr")
-        }
-    }, [lastLocation]);
+    const isTeacherPath = (location) => {
+        return location.search("teacher") > 0
+    };
+
+    const studentIsActive = isStudentPath(location.pathname);
+    const teacherIsActive = isTeacherPath(location.pathname);
+
+    console.log("My Active")
+    console.log(studentIsActive)
+    console.log(teacherIsActive)
+
+    // useEffect(() => {
+    //     console.log(location)
+    //     if (pathname != lastLocation) {
+    //         setLastLocation(location);
+    //         console.log(lastLocation)
+    //     }
+    // })
+
+    // useEffect(() => {
+    //     if (lastLocation.search("student")) {
+    //         setStudentIsActive(true);
+    //         setTeacherIsActive(false);
+    //         console.log("studentttt")
+    //     } else if (lastLocation.search("teacher")) {
+    //         setStudentIsActive(false);
+    //         setTeacherIsActive(true);
+    //         console.log("teacherrr")
+    //     }
+    // }, [lastLocation]);
     
     return (
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
